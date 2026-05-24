@@ -3,486 +3,697 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>DarkWeb Scam_OS Mobile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <title>Scam Tycoon - Bright Arcade Full Data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050505;
-            --panel: #0d1117;
-            --text-main: #c9d1d9;
-            --neon-green: #39ff14;
-            --neon-red: #ff073a;
-            --neon-blue: #00f3ff;
-            --border-color: rgba(0, 243, 255, 0.3);
-            --font-mono: 'Fira Code', monospace;
-            --font-display: 'Orbitron', sans-serif;
+            /* TÔNG MÀU SÁNG - TƯƠI TẮN - RỰC RỠ */
+            --bg-gradient-1: #ffecd2;
+            --bg-gradient-2: #fcb69f;
+            --bg-gradient-3: #a1c4fd;
+            --bg-gradient-4: #c2e9fb;
+
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-border: rgba(255, 255, 255, 1);
             
-            --safe-top: env(safe-area-inset-top, 0px);
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            
+            --primary: #ff6b81;       /* Đỏ hồng Coral - rực rỡ */
+            --primary-dark: #ff4757;
+            --secondary: #5352ed;     /* Xanh Tím - Năng động */
+            
+            --success: #2ed573;
+            --warning: #ffa502;
+            --danger: #ff4757;
+
+            --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --shadow-btn: 0 6px 0 rgba(0, 0, 0, 0.15);
+            
             --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
+        * {
+            box-sizing: border-box; margin: 0; padding: 0;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+            font-family: 'Nunito', sans-serif;
+        }
 
         body {
-            background-color: var(--bg);
+            /* Background sáng, đổi màu liên tục rất đẹp */
+            background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3), var(--bg-gradient-4));
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
             color: var(--text-main);
-            font-family: var(--font-mono);
-            /* SỬA LỖI CHE NÚT Ở ĐÂY: Dùng 100dvh thay vì 100vh */
-            height: 100vh;
-            height: 100dvh; 
+            height: 100vh; height: 100dvh; 
+            display: flex; flex-direction: column;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            background-image: radial-gradient(circle at 50% 50%, rgba(0, 243, 255, 0.05) 0%, transparent 80%);
-        }
-
-        /* Hiệu ứng sọc CRT */
-        body::after {
-            content: ""; position: absolute; top: 0; left: 0; width: 100vw; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none; z-index: 9999;
-        }
-
-        /* HEADER - HUD */
-        .hud {
-            padding: calc(10px + var(--safe-top)) 15px 10px 15px;
-            border-bottom: 2px solid var(--neon-blue);
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.9);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
-            z-index: 10;
-        }
-
-        .sys-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--neon-blue); text-shadow: 0 0 8px var(--neon-blue); letter-spacing: 1px; }
-        
-        .stats-box { display: flex; gap: 15px; }
-        .stat-item { display: flex; flex-direction: column; align-items: flex-end; }
-        .stat-label { font-size: 0.6rem; color: #8b949e; letter-spacing: 1px; margin-bottom: 2px; }
-        .stat-val { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; }
-        .money { color: var(--neon-green); text-shadow: 0 0 8px rgba(57, 255, 20, 0.4); }
-        .heat { color: var(--neon-red); text-shadow: 0 0 8px rgba(255, 7, 58, 0.4); }
-
-        /* MAIN CONTAINER */
-        .app-container {
-            flex: 1;
             position: relative;
-            overflow: hidden;
-            padding-bottom: var(--safe-bottom);
         }
 
-        /* KHUNG CHUẨN CỦA TỪNG MÀN HÌNH */
-        .app-screen {
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* HẠT EMOJI BAY LƠ LỬNG TRANG TRÍ */
+        .particles { position: absolute; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .particle { position: absolute; font-size: 1.8rem; opacity: 0; animation: floatUp 6s linear infinite; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* HUD - THANH TRẠNG THÁI (Trắng, bóng bẩy) */
+        .hud-wrapper { padding: 15px 15px 0 15px; z-index: 10; position: relative; }
+        .hud {
+            background: var(--card-bg);
+            border-radius: 25px; padding: 10px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: var(--shadow-soft); border: 2px solid white;
+        }
+        .stat-item { display: flex; align-items: center; gap: 8px; }
+        .stat-icon { font-size: 1.5rem; background: #f1f2f6; width: 42px; height: 42px; display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+        .stat-info { display: flex; flex-direction: column; }
+        .stat-label { font-size: 0.65rem; color: var(--text-muted); font-weight: 800; letter-spacing: 1px; text-transform: uppercase;}
+        .stat-val { font-size: 1.25rem; font-weight: 900; line-height: 1.1;}
+        .money { color: var(--success); }
+        .heat { color: var(--danger); }
+
+        /* KHU VỰC CHÍNH CHỨA MÀN HÌNH */
+        .main-container { flex: 1; position: relative; overflow: hidden; z-index: 10; }
+
+        .screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* SỬA LỖI CHE NÚT Ở ĐÂY: Thêm 40px padding ở đáy */
-            padding: 15px 15px 40px 15px; 
-            overflow-y: auto;
-            display: none;
-            flex-direction: column;
-            animation: fadeIn 0.3s ease-out;
+            padding: 20px 20px calc(40px + var(--safe-bottom)) 20px; 
+            overflow-y: auto; display: none; flex-direction: column;
         }
-        .app-screen.active { display: flex; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .screen.active { display: flex; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards; }
+        
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* --- MÀN 1: BẢNG MỤC TIÊU --- */
-        .screen-title {
-            font-family: var(--font-display);
-            font-size: 1rem; color: var(--neon-blue);
-            margin-bottom: 15px; padding-bottom: 8px;
-            border-bottom: 1px dashed var(--border-color);
-        }
-
-        .target-card {
-            border: 1px solid #30363d;
-            background: rgba(255,255,255,0.03);
-            padding: 15px; margin-bottom: 12px;
-            border-radius: 6px;
+        /* CÁC THẺ (CARD) MÀU TRẮNG SÁNG */
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px; padding: 24px; margin-bottom: 20px;
+            border: 3px solid white; box-shadow: var(--shadow-soft);
             position: relative; overflow: hidden;
-            transition: 0.2s;
         }
-        .target-card:active { background: rgba(0, 243, 255, 0.1); border-color: var(--neon-blue); }
+
+        .title { font-size: 1.4rem; font-weight: 900; margin-bottom: 10px; line-height: 1.3; color: var(--text-main); }
+        .desc { font-size: 1rem; color: var(--text-main); line-height: 1.6; font-weight: 600; min-height: 80px;}
+
+        /* NÚT LỰA CHỌN CHIẾN THUẬT */
+        .choices-wrapper { display: flex; flex-direction: column; gap: 15px; }
         
-        .target-card.done { opacity: 0.4; pointer-events: none; border-color: #30363d; }
-        .target-card.done::after {
-            content: 'DONE'; position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-15deg);
-            color: var(--neon-green); font-family: var(--font-display);
-            font-size: 1.8rem; letter-spacing: 2px;
-            border: 2px solid var(--neon-green); padding: 5px 10px;
-            background: rgba(0,0,0,0.8);
+        .btn-choice {
+            background: #ffffff; border: 2px solid #dfe4ea;
+            border-radius: 18px; padding: 18px; text-align: left; 
+            font-size: 1rem; color: var(--text-main); line-height: 1.5; font-weight: 700;
+            cursor: pointer; position: relative;
+            box-shadow: 0 6px 0 #ced6e0;
+            transition: transform 0.1s, box-shadow 0.1s;
         }
-        
-        .tc-badge { display: inline-block; padding: 3px 8px; background: rgba(255, 7, 58, 0.15); color: var(--neon-red); border: 1px solid var(--neon-red); font-size: 0.7rem; margin-bottom: 8px; font-weight: bold; border-radius: 4px; }
-        .tc-title { font-family: var(--font-display); color: #fff; font-size: 1.1rem; margin-bottom: 5px; }
-        .tc-desc { font-size: 0.85rem; color: #8b949e; line-height: 1.4; }
-
-        /* --- MÀN 2: THAO TÁC / CHỌN LỰA --- */
-        .btn-back {
-            background: transparent; border: 1px solid #30363d; color: #8b949e;
-            padding: 8px 15px; font-family: var(--font-display); font-size: 0.8rem;
-            margin-bottom: 15px; border-radius: 4px; align-self: flex-start;
-        }
-        .btn-back:active { background: rgba(255,255,255,0.1); }
-
-        .op-context {
-            background: rgba(0,0,0,0.5); border-left: 2px solid var(--neon-blue);
-            padding: 15px; margin-bottom: 20px;
-            font-size: 0.95rem; line-height: 1.5; color: #e5e7eb;
+        .btn-choice:active {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 #ced6e0;
+            border-color: var(--secondary); background: #f1f2f6;
         }
 
-        .choice-btn {
-            background: rgba(0,0,0,0.6);
-            border: 1px solid #30363d;
-            color: var(--text-main);
-            padding: 18px 15px; margin-bottom: 12px;
-            text-align: left; font-family: var(--font-mono); font-size: 0.95rem;
-            line-height: 1.5; border-radius: 8px; position: relative;
-        }
-        .choice-btn:active {
-            border-color: var(--neon-green); background: rgba(57, 255, 20, 0.1);
-        }
-
-        /* --- MÀN 3: TERMINAL MÔ PHỎNG --- */
-        .terminal-box {
-            background: #000; border: 1px solid var(--border-color);
-            flex: 1; padding: 15px; overflow-y: auto;
-            font-size: 0.85rem; display: flex; flex-direction: column;
-            border-radius: 6px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-            margin-bottom: 15px; min-height: 250px;
-        }
-        .term-line { margin-bottom: 10px; line-height: 1.5; }
-        .sys { color: var(--neon-blue); }
-        .success { color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green); }
-        .danger { color: var(--neon-red); text-shadow: 0 0 5px var(--neon-red); }
-        .warning { color: #ffd700; }
-
+        /* NÚT ACTION CHÍNH */
         .btn-primary {
-            background: var(--neon-blue); color: #000; border: none;
-            padding: 16px; font-family: var(--font-display); font-weight: bold;
-            font-size: 1rem; text-transform: uppercase; border-radius: 6px;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3); display: none; width: 100%;
-            /* SỬA LỖI CHE NÚT Ở ĐÂY: Đẩy nút lên 20px */
-            margin-bottom: 20px;
+            background: linear-gradient(180deg, #ff7eb3, #ff4757);
+            color: #fff; border: none; border-radius: 20px;
+            padding: 18px; font-size: 1.2rem; font-weight: 900;
+            width: 100%; text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 8px 0 #c0392b; 
+            margin-top: auto; cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.1s;
         }
-        .btn-primary:active { background: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.6); }
+        .btn-primary:active {
+            transform: translateY(8px);
+            box-shadow: 0 0px 0 #c0392b;
+        }
+        
+        .btn-blue {
+            background: linear-gradient(180deg, #70a1ff, #5352ed);
+            box-shadow: 0 8px 0 #3742fa;
+        }
+        .btn-blue:active { box-shadow: 0 0px 0 #3742fa; }
 
-        /* OVERLAYS (Boot & End) */
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5,5,5,0.98); z-index: 2000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 20px;
+        /* MÀN HÌNH FEEDBACK */
+        .fb-header { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px; text-align: center;}
+        .fb-icon { font-size: 4.5rem; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.15)); animation: stampIn 0.5s cubic-bezier(0.2, 1.2, 0.3, 1.2) forwards; transform: scale(0);}
+        
+        @keyframes stampIn {
+            0% { transform: scale(0) rotate(-15deg); }
+            100% { transform: scale(1) rotate(0deg); }
         }
-        .title-glitch {
-            font-family: var(--font-display); font-size: 2.2rem; color: var(--neon-red);
-            text-shadow: 2px 0 var(--neon-blue), -2px 0 var(--neon-green);
-            margin-bottom: 20px; letter-spacing: 2px; text-align: center;
+
+        .fb-title { font-weight: 900; font-size: 1.8rem; text-transform: uppercase; letter-spacing: -0.5px;}
+
+        .reward-box { display: flex; gap: 12px; margin-bottom: 20px; }
+        .reward-card {
+            background: #f1f2f6; border-radius: 18px; padding: 15px; flex: 1; text-align: center;
+            border: 2px solid #ffffff; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
-        .intro-box {
-            background: rgba(0,243,255,0.05); border: 1px solid var(--neon-blue);
-            padding: 20px; line-height: 1.6; color: var(--neon-blue);
-            font-size: 0.9rem; margin-bottom: 30px; border-radius: 8px; width: 100%; max-width: 400px;
+        .reward-val { font-size: 1.5rem; font-weight: 900; margin-top: 5px;}
+
+        .lesson-box {
+            background: #eccc6822; border: 2px dashed #ffa502;
+            padding: 18px; border-radius: 18px; font-size: 0.95rem; line-height: 1.6; color: #2f3542; font-weight: 700;
         }
+
+        /* MÀN HÌNH CHỜ (LOADING) */
+        .loading-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px);
+            z-index: 100; display: none; flex-direction: column;
+            justify-content: center; align-items: center; gap: 20px;
+        }
+        .loading-emoji { font-size: 4rem; animation: bounce 0.5s infinite alternate; }
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
+        
+        .loading-bar-wrapper { width: 80%; max-width: 300px; height: 16px; background: #dfe4ea; border-radius: 20px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); border: 2px solid white;}
+        .loading-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff7eb3, #ff4757); border-radius: 20px; transition: width 0.1s; }
+        .loading-text { font-weight: 800; color: var(--primary-dark); font-size: 1rem; text-transform: uppercase;}
+
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="overlay" id="start-screen">
-        <div class="title-glitch">SCAM_OS<br>MOBILE</div>
-        <div class="intro-box">
-            > KẾT NỐI DARK WEB... OK<br>
-            > XÁC THỰC THIẾT BỊ... OK<br><br>
-            <strong style="color:#fff;">[HƯỚNG DẪN CHIẾN DỊCH]</strong><br>
-            1. Chọn "Con mồi" trên bảng mục tiêu.<br>
-            2. Cài cắm kịch bản lừa đảo/tin giả.<br>
-            3. Kiếm tiền ($) từ sự cả tin của đám đông.<br><br>
-            <span style="color: var(--neon-red); font-weight:bold;">[!] CẢNH BÁO:</span> Mức độ bị truy nã (HEAT) đạt 100% -> Bạn sẽ bị bắt.
-        </div>
-        <button class="btn-primary" style="display: block; max-width: 400px; margin-bottom: 0;" onclick="startGame()">TRUY CẬP HỆ THỐNG</button>
-    </div>
+    <div class="particles" id="particles"></div>
 
-    <header class="hud">
-        <div class="sys-title">SCAM // OS</div>
-        <div class="stats-box">
-            <div class="stat-item">
-                <span class="stat-label">CASH</span>
-                <span class="stat-val money">$<span id="ui-money">0</span></span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">HEAT</span>
-                <span class="stat-val heat"><span id="ui-heat">0</span>%</span>
-            </div>
+    <div class="screen active" id="start-screen" style="justify-content: center;">
+        <div class="card text-center" style="margin-bottom: 20px; padding: 40px 20px;">
+            <div style="font-size: 5rem; margin-bottom: 10px;">🦊</div>
+            <h1 style="color: var(--primary-dark); margin-bottom: 10px; font-weight: 900; font-size: 2.2rem; text-transform: uppercase;">Fake News Tycoon</h1>
+            <p style="color: var(--text-muted); font-size: 1rem; font-weight: 700;">Hệ Thống Tiêm Chủng Tâm Lý</p>
         </div>
-    </header>
-
-    <div class="app-container">
         
-        <div class="app-screen active" id="screen-targets">
-            <div class="screen-title">> TARGET_LIST.EXE</div>
-            <div id="targets-list-container">
-                </div>
+        <div class="card" style="border-left: 6px solid var(--warning); padding: 18px;">
+            <strong style="color: var(--warning); display:flex; align-items:center; gap:8px; margin-bottom:10px; font-size: 1.1rem; font-weight: 900;">⚠️ LUẬT CHƠI DỄ HIỂU:</strong>
+            <ul style="color: var(--text-main); font-size: 0.95rem; padding-left: 20px; line-height: 1.8; font-weight: 700;">
+                <li>Đóng vai Admin Page Rác, gài bẫy bằng <strong style="color:var(--secondary);">1 trong 3</strong> kịch bản.</li>
+                <li>Lừa càng mượt ➡️ Tiền quảng cáo về túi càng nhiều 💰.</li>
+                <li>Tin bịa đặt lố bịch ➡️ Bị báo cáo, tăng thanh 🚩 CỜ ĐỎ.</li>
+                <li>CỜ ĐỎ đầy 100% ➡️ BẠN BỊ PHONG SÁT, TÀI KHOẢN BAY MÀU!</li>
+            </ul>
         </div>
-
-        <div class="app-screen" id="screen-operation">
-            <button class="btn-back" onclick="switchScreen('screen-targets')">< VỀ DANH SÁCH</button>
-            <div class="screen-title" id="op-title">...</div>
-            <div class="op-context" id="op-context">...</div>
-            <div style="font-size: 0.8rem; color: #8b949e; margin-bottom: 10px;">> SELECT EXPLOIT VECTOR:</div>
-            <div id="choices-container">
-                </div>
-        </div>
-
-        <div class="app-screen" id="screen-terminal">
-            <div class="screen-title">> PAYLOAD_EXECUTION</div>
-            <div class="terminal-box" id="terminal-ui">
-                <div id="terminal-text"></div>
-            </div>
-            <button class="btn-primary" id="btn-finish" onclick="finishOperation()">TÌM MỤC TIÊU MỚI</button>
-        </div>
-
+        
+        <button class="btn-primary" onclick="startGame()">🚀 BẮT ĐẦU CÂU VIEW</button>
     </div>
 
-    <div class="overlay" id="end-screen" style="display: none;">
-        <div class="title-glitch" id="end-title" style="color: var(--neon-red);">...</div>
-        <div id="end-desc" style="line-height: 1.6; font-size: 1rem; margin-bottom: 30px; text-align: left; padding: 0 15px;"></div>
-        <button class="btn-primary" style="display: block; max-width: 400px; margin-bottom: 0;" onclick="location.reload()">XÓA DẤU VẾT & CHƠI LẠI</button>
+    <div class="hud-wrapper hidden" id="hud">
+        <div class="hud">
+            <div class="stat-item">
+                <div class="stat-icon">💸</div>
+                <div class="stat-info">
+                    <span class="stat-label">Doanh Thu Ads</span>
+                    <span class="stat-val money">$<span id="ui-money">0</span></span>
+                </div>
+            </div>
+            <div class="stat-item" style="flex-direction: row-reverse; text-align: right;">
+                <div class="stat-icon" style="background: #ffeaa7;">🚩</div>
+                <div class="stat-info">
+                    <span class="stat-label">Cờ Đỏ (Report)</span>
+                    <span class="stat-val heat"><span id="ui-heat">0</span>%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container hidden" id="game-container">
+        
+        <div class="screen" id="mission-screen">
+            <div style="font-weight: 900; color: var(--secondary); margin-bottom: 12px; font-size: 0.95rem; text-transform: uppercase;">
+                🎯 BÀI ĐĂNG THỨ <span id="ui-turn-count">1</span>/5
+            </div>
+            
+            <div class="card">
+                <div style="display:inline-block; background:#eccc68; color:#2f3542; padding:6px 12px; border-radius:12px; font-size:0.8rem; font-weight:900; margin-bottom:12px;">
+                    TÂM ĐIỂM: <span id="op-target"></span>
+                </div>
+                <div class="title" id="op-title">SỰ KIỆN NÓNG</div>
+                <div class="desc" id="op-context"></div> 
+            </div>
+
+            <div style="font-weight: 800; font-size: 1rem; margin-bottom: 12px; color: var(--text-muted); text-transform: uppercase;">👉 Chọn cách giật tít:</div>
+            <div class="choices-wrapper" id="choices-container" style="opacity: 0;">
+                </div>
+        </div>
+
+        <div class="loading-overlay" id="loading-ui">
+            <div class="loading-emoji" id="loading-icon">📱</div>
+            <div class="loading-text" id="loading-text">Đang thả mồi lên mạng...</div>
+            <div class="loading-bar-wrapper">
+                <div class="loading-bar" id="loading-bar"></div>
+            </div>
+        </div>
+
+        <div class="screen" id="feedback-screen">
+            <div class="card" id="fb-card" style="margin-top: 10px; border-top: 6px solid transparent;">
+                <div class="fb-header" id="fb-header">
+                    <div class="fb-icon" id="fb-icon">...</div>
+                    <div class="fb-title" id="fb-title">...</div>
+                </div>
+                
+                <div style="font-size: 1.05rem; line-height: 1.6; color: var(--text-main); font-weight: 700; margin-bottom: 25px; text-align: center;" id="fb-desc">...</div>
+                
+                <div class="reward-box">
+                    <div class="reward-card">
+                        <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase;">Tiền Nhận</div>
+                        <div class="reward-val" style="color: var(--success);" id="fb-money">+0$</div>
+                    </div>
+                    <div class="reward-card">
+                        <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase;">Bị Report Tăng</div>
+                        <div class="reward-val" style="color: var(--danger);" id="fb-heat">+0%</div>
+                    </div>
+                </div>
+
+                <div class="lesson-box">
+                    <strong style="color: var(--warning); display:flex; align-items:center; gap:8px; margin-bottom: 8px; font-size: 1.1rem; font-weight: 900;">🧠 SỰ THẬT TÂM LÝ:</strong>
+                    <span id="fb-lesson">...</span>
+                </div>
+            </div>
+
+            <button class="btn-primary btn-blue" id="btn-next" onclick="nextLevel()">LÊN BÀI TIẾP THEO ⏭</button>
+        </div>
+
+        <div class="screen" id="end-screen" style="justify-content: center;">
+            <div class="card text-center" style="margin-bottom: 30px; padding: 40px 20px;">
+                <div style="font-size: 5rem; margin-bottom: 15px;" id="end-icon">🎉</div>
+                <div class="title" id="end-title" style="font-size: 2rem; margin-bottom: 20px; font-weight: 900; text-transform: uppercase;">...</div>
+                <div class="desc" id="end-desc" style="font-size: 1.05rem;">...</div>
+            </div>
+            <button class="btn-primary" onclick="location.reload()">🔄 CHƠI LẠI TỪ ĐẦU</button>
+        </div>
+
     </div>
 
     <script>
-        // ==========================================
-        // 1. DATABASE
-        // ==========================================
+        // --- TẠO EMOJI BAY BACKGROUND CHO SINH ĐỘNG ---
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const icons = ['💸', '👀', '📱', '🔥', '🤫', '📈'];
+            for(let i=0; i<15; i++) {
+                let p = document.createElement('div');
+                p.className = 'particle';
+                p.innerText = icons[Math.floor(Math.random() * icons.length)];
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 4 + 4) + 's'; 
+                p.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(p);
+            }
+        }
+        createParticles();
+
+        // --- FULL DATABASE ĐÃ ĐƯỢC CHỈNH SỬA THEO "FAKE NEWS / TROLL FARM" ---
         const database = [
             {
-                id: 0,
-                title: "Dự án Crypto 'Úp Bô'",
-                target: "Gen Z, Muốn làm giàu nhanh",
-                context: "Đồng coin 'PEPE-X' vừa ra mắt. Khắp nơi trên mạng bàn tán việc x10 tài sản chỉ trong 1 đêm. Cần thiết kế kịch bản lùa gà.",
-                lesson: "Kẻ lừa đảo thường dùng 'Nửa sự thật' và phông bạt sang chảnh để kích hoạt sự Tham Lam (FOMO), khiến nạn nhân tự nguyện nạp tiền.",
+                title: "Trục Lợi Lòng Tham",
+                target: "Hội chứng sợ bỏ lỡ (FOMO)",
+                context: "Đồng coin 'PEPE-X' vừa ra mắt. Khắp mạng xã hội xôn xao vụ có người x10 tài sản. Đây là cơ hội vàng để câu view và ăn tiền tiếp thị liên kết (Affiliate).",
+                lesson: "Tin giả cực kỳ hiệu quả khi dùng chiêu 'Phông bạt' (khoe số dư giả). Chúng tự kích hoạt sự Tham Lam tột độ, khiến não bộ tự tắt đi sự nghi ngờ.",
                 choices: [
                     {
-                        text: "Đăng ảnh chuyển khoản lãi 50%, mập mờ 'ai nhạy bén thì vào nhóm kín'.",
+                        text: "Đăng ảnh PTS khoe số dư lãi 50%, viết cap mập mờ: 'Ai nhạy bén thì inbox vào nhóm VIP báo kèo'.",
                         isSmart: true, money: 8500, heat: 5,
-                        result: "[+] THÀNH CÔNG: Kích hoạt FOMO. Nạn nhân tự chơi lỗ tự chịu, bạn ngồi ăn hoa hồng.", color: "success"
+                        result: "Mượt mà! Hiệu ứng FOMO giúp bài viết ngập tràn bình luận xin link. Bạn bú đậm tiền quảng cáo và hoa hồng.",
+                        color: "var(--success)", icon: "🤑"
                     },
                     {
-                        text: "Lập Group cam kết lãi x10 trong 3 ngày. Thu phí vào 500k/người lập tức.",
+                        text: "Lập Group cam kết CHẮC CHẮN lãi x10 trong 3 ngày. Ai muốn biết mã coin thì nạp 500k.",
                         isSmart: false, money: 1200, heat: 45,
-                        result: "[-] CẢNH BÁO: Hứa hẹn quá lố! Bị cộng đồng bóc phốt và Report sập Group.", color: "warning"
+                        result: "Quá lộ liễu! Vài người mắc bẫy nhưng sau đó cộng đồng bóc phốt bạn. Page của bạn bị report sập ngay lập tức.",
+                        color: "var(--warning)", icon: "🤡"
                     },
                     {
-                        text: "Nhắn tin Spam giả danh CEO Binance kêu gọi họ nạp tiền vào ví.",
+                        text: "Dùng tool gửi tin nhắn Spam chửi bới những người không chịu đầu tư.",
                         isSmart: false, money: 0, heat: 25,
-                        result: "[x] THẤT BẠI: Chiêu thô thiển. AI khóa mõm tài khoản của bạn vì Spam.", color: "danger"
+                        result: "Chẳng có ích gì! Thuật toán của MXH ngay lập tức đánh dấu bạn là Spam, bóp tương tác toàn bộ hệ thống kênh của bạn.",
+                        color: "var(--danger)", icon: "🚫"
                     }
                 ]
             },
             {
-                id: 1,
-                title: "Thần dược chữa bệnh",
-                target: "Người già, Sợ bệnh tật",
-                context: "Dịch bệnh mới lây lan nhanh, bệnh viện quá tải. Tâm lý đám đông đang hoang mang tột độ.",
-                lesson: "Khi sợ hãi y tế hiện đại, con người dễ tin vào mẹo dân gian để có cảm giác 'tự kiểm soát tình hình'.",
+                title: "Thần Dược Mùa Dịch",
+                target: "Sự sợ hãi y tế, sức khỏe",
+                context: "Đang có tin đồn về một dịch bệnh lạ lây lan. Bệnh viện đông đúc, y tế quá tải khiến tâm lý cộng đồng mạng cực kỳ hoang mang.",
+                lesson: "Khi sợ hãi y tế hiện đại, con người bị tắt lý trí. Tin giả dễ dàng thao túng họ bằng cách cung cấp các giải pháp 'thần dược' mang lại cảm giác an tâm ảo.",
                 choices: [
                     {
-                        text: "Tung tin: 'Bác sĩ giấu số ca tử vong!' để kêu gọi quyên góp vào quỹ cá nhân.",
+                        text: "Tung tin bịa đặt: 'Bác sĩ đang giấu số ca tử vong, y tế vỡ trận!' kèm link bán hàng của bạn.",
                         isSmart: false, money: 0, heat: 60,
-                        result: "[-] NGUY HIỂM: Tin giả rúng động khiến công an điều tra. IP bị theo dõi.", color: "danger"
+                        result: "Chọc nhầm ổ kiến lửa! Tin giả gây hoang mang dư luận. Bộ Y tế lên tiếng đính chính. Thuật toán quét khóa mõm tài khoản của bạn vĩnh viễn.",
+                        color: "var(--danger)", icon: "🚩"
                     },
                     {
-                        text: "Bán 'Tinh dầu xông kháng khuẩn'. Thuê nick ảo đóng giả bệnh nhân comment cảm ơn.",
+                        text: "Đăng bài: 'Cách xông tinh dầu dân gian đánh bay dịch bệnh'. Thuê tool thả 100 bình luận giả vờ làm bệnh nhân khen nức nở.",
                         isSmart: true, money: 12000, heat: 10,
-                        result: "[+] THÀNH CÔNG: Nỗi sợ + 'Chim mồi' tạo niềm tin. Hàng bán sạch với giá cắt cổ.", color: "success"
+                        result: "Quá thông minh! Nỗi sợ + 'Chim mồi' tạo ra niềm tin mù quáng. Bài viết Viral bùng nổ, kéo một lượng traffic khủng về page.",
+                        color: "var(--success)", icon: "😈"
                     },
                     {
-                        text: "Chửi những người không đeo khẩu trang, ép họ mua đồ của bạn.",
+                        text: "Đăng status chửi bới những người không đeo khẩu trang bằng lời lẽ tục tĩu.",
                         isSmart: false, money: 0, heat: 20,
-                        result: "[x] THẤT BẠI: Tạo tranh cãi vô bổ, bị ném đá ngược lại.", color: "warning"
+                        result: "Toxic vô bổ! Việc chửi đổng chỉ khiến bạn rước thêm anti-fan report chứ chẳng có lượt chia sẻ nào.",
+                        color: "var(--warning)", icon: "🗿"
                     }
                 ]
             },
             {
-                id: 2,
-                title: "Kêu gọi Từ thiện ảo",
-                target: "Nhà hảo tâm, Dễ mủi lòng",
-                context: "Trường học vùng cao bị sạt lở. Cộng đồng mạng đang rất xót xa muốn quyên góp.",
-                lesson: "Lừa đảo từ thiện thường dùng ảnh thật để lấy lòng tin ban đầu, sau đó khéo léo chèn STK cá nhân vào.",
+                title: "Bóc Phốt Thương Hiệu",
+                target: "Sự phẫn nộ, Đám đông hùa theo",
+                context: "Hãng mỹ phẩm nổi tiếng M vừa đổi bao bì và bỏ một số chất bảo quản cũ đi. Bạn nhận được yêu cầu viết bài 'dìm hàng' từ đối thủ của họ.",
+                lesson: "Tin giả dìm hàng thường cắt xén bối cảnh hoặc bịa đặt hậu quả nghiêm trọng để kích hoạt 'Sự phẫn nộ', khiến đám đông bấm Share điên cuồng trước khi kịp xác minh.",
                 choices: [
                     {
-                        text: "Copy ảnh của báo, viết bài đẫm nước mắt kèm STK cá nhân của bạn.",
-                        isSmart: true, money: 15000, heat: 15,
-                        result: "[+] THÀNH CÔNG: Ảnh thật làm lu mờ lý trí. Tiền vào như nước.", color: "success"
+                        text: "Giật tít: 'Hãng M dùng hóa chất rẻ tiền gây ung thư da! Nhiều người hỏng mặt rồi, share gấp!'",
+                        isSmart: true, money: 8000, heat: 15,
+                        result: "Ác nhưng cực viral. Bạn ghép sự thật (đổi bao bì) với tin giả (ung thư) khiến cộng đồng phẫn nộ tột độ, page của bạn tăng ngàn lượt follow.",
+                        color: "var(--success)", icon: "🔥"
                     },
                     {
-                        text: "Photoshop sao kê thành 1 tỷ đồng để đánh bóng tên tuổi lùa gà.",
-                        isSmart: false, money: 0, heat: 55,
-                        result: "[-] BỊ BÓC PHỐT: CĐM soi ra lỗi Photoshop. Truyền thông sụp đổ.", color: "danger"
+                        text: "Nhận xét bình thường: 'Hãng M dạo này ngáo giá, bán đắt mà dùng không ngon bằng hàng nội địa'.",
+                        isSmart: false, money: 0, heat: 5,
+                        result: "Quá hiền! Lời nhận xét không chứa yếu tố giật gân nên chẳng thuật toán nào thèm đề xuất bài viết của bạn.",
+                        color: "var(--warning)", icon: "😴"
                     },
                     {
-                        text: "Kêu gọi quyên góp quần áo cũ thay vì tiền mặt.",
-                        isSmart: false, money: 0, heat: 0,
-                        result: "[x] VÔ DỤNG: Đứng góc độ Scammer, tốn công mà chả có xu nào.", color: "warning"
+                        text: "Bịa chuyện viễn tưởng: 'Giám đốc hãng M là sinh vật ngoài hành tinh dùng kem trộn hút sinh lực!'",
+                        isSmart: false, money: 0, heat: 35,
+                        result: "Quá lố bịch! Bài viết bị mang vào các nhóm Hài hước để chế giễu. Bạn bị ăn bão cờ đỏ (report) vì spam nội dung rác.",
+                        color: "var(--danger)", icon: "👽"
+                    }
+                ]
+            },
+            {
+                title: "Drama Showbiz",
+                target: "Sự tò mò, Định kiến xã hội",
+                context: "Một ca sĩ nữ nổi tiếng bị chụp lén ảnh đang ăn tối cùng một nam doanh nhân đã có gia đình. Bạn cần một cú clickbait để kéo traffic.",
+                lesson: "Tin giả dựa trên 'Định kiến' (Confirmation Bias). Dư luận vốn có sẵn định kiến 'kiều nữ - đại gia', nên họ sẽ tin ngay bất cứ tin giả nào củng cố suy nghĩ đó.",
+                choices: [
+                    {
+                        text: "Lên bài: 'Lộ hợp đồng 50 tỷ! Các giải thưởng của cô ca sĩ đều do đại gia mua đứt'.",
+                        isSmart: true, money: 12000, heat: 10,
+                        result: "Tuyệt vời. Tin đồn đánh trúng định kiến dư luận. Bài viết đạt hàng chục ngàn lượt Share, giúp bạn thu bạo tiền quảng cáo.",
+                        color: "var(--success)", icon: "📈"
+                    },
+                    {
+                        text: "Đóng vai đạo lý: 'Xin mọi người đừng ném đá, cô ấy đang bị công ty ép đi tiếp khách đấy!'.",
+                        isSmart: false, money: 1000, heat: 25,
+                        result: "Đi ngược luồng phẫn nộ của dư luận. Đám đông cho rằng page của bạn nhận tiền để 'tẩy trắng' và rủ nhau bỏ theo dõi.",
+                        color: "var(--warning)", icon: "📉"
+                    },
+                    {
+                        text: "Giật tít: 'Clip full không che ở khách sạn, link tải ở dưới bình luận!'",
+                        isSmart: false, money: 0, heat: 50,
+                        result: "Thủ đoạn rẻ tiền! Nền tảng lập tức quét AI ra link bẩn lừa đảo. Bạn nhận ngay một cảnh cáo đỏ chót từ hệ thống.",
+                        color: "var(--danger)", icon: "🚫"
+                    }
+                ]
+            },
+            {
+                title: "Hoang Mang Từ Thiện",
+                target: "Sự đa nghi, Mất niềm tin",
+                context: "Một diễn viên nổi tiếng đăng sao kê ủng hộ 500 triệu xây trường. Bạn cần tạo drama để Page mình nổi lên.",
+                lesson: "Chỉ cần tung một 'Bằng chứng giả' (Cắt ghép Photoshop) mập mờ, sự đa nghi tự nhiên của con người sẽ làm phần còn lại, biến tin đồn thành bạo lực mạng.",
+                choices: [
+                    {
+                        text: "Đăng ảnh khoanh đỏ tờ sao kê và bảo: 'Photoshop lỗi kìa! Soi mã giao dịch thì có 50 nghìn thôi, nghệ sĩ toàn phông bạt!'",
+                        isSmart: true, money: 15000, heat: 12,
+                        result: "Cú dắt mũi đỉnh cao! Đánh trúng sự đa nghi của cộng đồng mạng. Bức ảnh giả của bạn biến thành cơn bão bóc phốt mang lại vô số lượt xem.",
+                        color: "var(--success)", icon: "📸"
+                    },
+                    {
+                        text: "Đăng bài chửi đổng: 'Cái loại diễn viên bình hoa di động này thì có làm màu cỡ nào cũng là rác rưởi!'",
+                        isSmart: false, money: 500, heat: 20,
+                        result: "Sự ganh ghét cá nhân lạc đề không có sức nặng. Lượng tương tác lẹt đẹt và bị fan hâm mộ của diễn viên ném đá.",
+                        color: "var(--warning)", icon: "🗿"
+                    },
+                    {
+                        text: "Chia sẻ bài: 'Cát xê hàng tỷ mà bố thí có 500 triệu, đúng đồ ki bo bủn xỉn!'",
+                        isSmart: false, money: 0, heat: 30,
+                        result: "Thói 'ăn mày đạo đức' bị phản tác dụng. Cộng đồng mạng quay xe bênh vực diễn viên và report bài viết của bạn vì xúc phạm danh dự.",
+                        color: "var(--danger)", icon: "🤡"
                     }
                 ]
             }
         ];
 
-        // ==========================================
-        // 2. STATE & ENGINE
-        // ==========================================
+        // --- ENGINE GAME ---
         let state = {
+            playQueue: [],
+            turn: 0,
             money: 0,
             heat: 0,
-            completedIds: [],
             isTyping: false
         };
 
+        // Chuyển màn hình mượt
         function switchScreen(screenId) {
-            document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.screen').forEach(s => {
+                s.classList.remove('active');
+            });
+            void document.getElementById(screenId).offsetWidth; // Reflow
             document.getElementById(screenId).classList.add('active');
         }
 
-        function startGame() {
-            document.getElementById('start-screen').style.display = 'none';
-            renderTargets();
-        }
-
-        function renderTargets() {
-            const container = document.getElementById('targets-list-container');
-            container.innerHTML = '';
-
-            database.forEach(db => {
-                const isDone = state.completedIds.includes(db.id);
-                const div = document.createElement('div');
-                div.className = `target-card ${isDone ? 'done' : ''}`;
-                div.innerHTML = `
-                    <div class="tc-badge">TARGET: ${db.target}</div>
-                    <div class="tc-title">${db.title}</div>
-                    <div class="tc-desc">${isDone ? 'DATA EXTRACTED' : 'Tap to initialize operation...'}</div>
-                `;
-                if(!isDone) {
-                    div.onclick = () => loadOperation(db);
+        // Ticker nhảy số mượt
+        function animateValue(id, start, end, duration, prefix = "", suffix = "") {
+            const obj = document.getElementById(id);
+            if (!obj) return;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = `${prefix}${Math.floor(progress * (end - start) + start).toLocaleString()}${suffix}`;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
                 }
-                container.appendChild(div);
-            });
-            
-            switchScreen('screen-targets');
-            checkGameEnd();
+            };
+            window.requestAnimationFrame(step);
         }
 
-        function loadOperation(db) {
-            if(state.isTyping) return;
-
-            document.getElementById('op-title').innerText = `OP: ${db.title.toUpperCase()}`;
-            document.getElementById('op-context').innerText = `[INTEL]: ${db.context}`;
-
-            const choicesDiv = document.getElementById('choices-container');
-            choicesDiv.innerHTML = '';
+        function startGame() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('hud').classList.remove('hidden');
+            document.getElementById('game-container').classList.remove('hidden');
             
+            // Random câu hỏi
+            state.playQueue = [...database].sort(() => Math.random() - 0.5);
+            state.turn = 0; state.money = 0; state.heat = 0;
+
+            loadLevel();
+        }
+
+        async function loadLevel() {
+            if (state.turn >= 5) { // Game kết thúc sau 5 lượt
+                return endGame(true);
+            }
+
+            const db = state.playQueue[state.turn];
+
+            document.getElementById('ui-turn-count').innerText = state.turn + 1;
+            document.getElementById('op-target').innerHTML = db.target;
+            document.getElementById('op-title').innerText = db.title;
+            
+            const contextEl = document.getElementById('op-context');
+            const choicesContainer = document.getElementById('choices-container');
+            
+            contextEl.innerHTML = '';
+            choicesContainer.style.opacity = '0';
+            choicesContainer.innerHTML = '';
+            
+            // Xáo trộn 3 lựa chọn
             let shuffled = [...db.choices].sort(() => Math.random() - 0.5);
             shuffled.forEach(ch => {
                 const btn = document.createElement('button');
-                btn.className = 'choice-btn';
-                btn.innerText = ch.text;
-                btn.onclick = () => executeExploit(ch, db);
-                choicesDiv.appendChild(btn);
+                btn.className = 'btn-choice';
+                btn.innerHTML = `${ch.text}`;
+                btn.onclick = () => executeChoice(ch, db);
+                choicesContainer.appendChild(btn);
             });
 
-            switchScreen('screen-operation');
-        }
+            switchScreen('mission-screen');
 
-        async function executeExploit(choice, db) {
-            if(state.isTyping) return;
+            // Gõ chữ cực nhanh (như nhắn tin)
             state.isTyping = true;
-
-            switchScreen('screen-terminal');
-            
-            const termUi = document.getElementById('terminal-ui');
-            const termText = document.getElementById('terminal-text');
-            const btnFinish = document.getElementById('btn-finish');
-            
-            termText.innerHTML = ''; 
-            btnFinish.style.display = 'none'; 
-            state.completedIds.push(db.id);
-
-            // Hàm in chữ hiệu ứng Typewriter
-            const typeText = async (text, cssClass = '') => {
-                const line = document.createElement('div');
-                line.className = `term-line ${cssClass}`;
-                termText.appendChild(line);
-                
-                for(let i=0; i<text.length; i++) {
-                    line.innerHTML += text.charAt(i);
-                    termUi.scrollTop = termUi.scrollHeight;
-                    // Tốc độ gõ chữ trên mobile (10ms)
-                    await new Promise(r => setTimeout(r, 10)); 
-                }
-                // Dừng một nhịp để người dùng kịp đọc
-                await new Promise(r => setTimeout(r, 400)); 
-            };
-
-            await typeText("> Chèn mã độc tâm lý...", "sys");
-            await typeText("> Vượt bộ lọc AI...", "sys");
-            await typeText("> Phân phối nội dung...", "sys");
-            await typeText("-----------------------");
-            
-            await typeText(choice.result, choice.color);
-            
-            state.money += choice.money;
-            state.heat += choice.heat;
-            if(state.heat > 100) state.heat = 100;
-            
-            document.getElementById('ui-money').innerText = state.money.toLocaleString();
-            document.getElementById('ui-heat').innerText = state.heat;
-
-            await typeText("-----------------------");
-            await typeText(`[+$${choice.money.toLocaleString()}] Đã ẩn danh.`, "money");
-            await typeText(`[+${choice.heat}% HEAT] Bị điều tra thêm.`, "danger");
-            
-            await typeText("-----------------------");
-            await typeText(`[BÀI HỌC GIẢI MÃ]:`, "warning");
-            await typeText(db.lesson, "text-main");
-
-            state.isTyping = false;
-            
-            if(state.heat < 100) {
-                btnFinish.style.display = 'block';
-                termUi.scrollTop = termUi.scrollHeight;
-            } else {
-                setTimeout(() => checkGameEnd(), 1500);
+            let textToType = db.context;
+            for(let i=0; i<textToType.length; i++) {
+                contextEl.innerHTML += textToType.charAt(i);
+                await new Promise(r => setTimeout(r, 10)); 
             }
+            state.isTyping = false;
+
+            // Fade in nút bấm
+            choicesContainer.style.transition = "opacity 0.4s ease-in";
+            choicesContainer.style.opacity = '1';
         }
 
-        function finishOperation() {
-            renderTargets(); // Gọi lại hàm này tự chuyển về screen-targets
+        function executeChoice(choice, db) {
+            if(state.isTyping) return; 
+
+            // HIỆU ỨNG LOADING VUI NHỘN
+            const loadingUI = document.getElementById('loading-ui');
+            const loadBar = document.getElementById('loading-bar');
+            const loadText = document.getElementById('loading-text');
+            const loadIcon = document.getElementById('loading-icon');
+            
+            loadingUI.style.display = 'flex';
+            loadBar.style.width = '0%';
+            
+            let w = 0;
+            const steps = [
+                {icon: "📱", text: "Đang viết bài giật tít..."},
+                {icon: "🤖", text: "Mua 1000 lượt Share ảo..."},
+                {icon: "🔥", text: "Bài viết đang Viral..."},
+                {icon: "💰", text: "Chờ kiểm tra kết quả..."}
+            ];
+            
+            let interval = setInterval(() => {
+                w += 4;
+                loadBar.style.width = w + '%';
+                
+                if(w == 20) { loadText.innerText = steps[1].text; loadIcon.innerText = steps[1].icon; }
+                if(w == 50) { loadText.innerText = steps[2].text; loadIcon.innerText = steps[2].icon; }
+                if(w == 80) { loadText.innerText = steps[3].text; loadIcon.innerText = steps[3].icon; }
+
+                if (w >= 100) {
+                    clearInterval(interval);
+                    loadingUI.style.display = 'none';
+                    showFeedback(choice, db);
+                }
+            }, 30);
         }
 
-        function checkGameEnd() {
-            const endScreen = document.getElementById('end-screen');
+        function showFeedback(choice, db) {
+            // Logic RNG (20% xui xẻo nếu chọn đúng)
+            let isSmart = choice.match ?? choice.isSmart; // Hỗ trợ cả 2 định dạng data
+            let moneyEarned = choice.reach ?? choice.money; 
+            let heatEarned = choice.susp ?? choice.heat;
+            let resultDesc = choice.debrief ?? choice.result;
+            
+            let finalSuccess = isSmart;
+            let isRNGFail = false;
+
+            if (isSmart && Math.random() >= 0.8) {
+                finalSuccess = false;
+                isRNGFail = true;
+                moneyEarned = Math.floor(moneyEarned * 0.2);
+                heatEarned += 25;
+                resultDesc = "<strong>⚠️ BỊ BÓC PHỐT (Xui xẻo ngẫu nhiên):</strong> Giật tít cực bén nhưng đen đủi bị chuyên gia Fact-check phát hiện! Bị cộng đồng chửi ngược.<br><br>" + resultDesc;
+            } else if (!isSmart) {
+                resultDesc = "<strong>❌ KHÔNG HIỆU QUẢ:</strong> " + resultDesc;
+            } else {
+                resultDesc = "<strong>✅ THAO TÚNG THÀNH CÔNG:</strong> " + resultDesc;
+            }
+
+            if (state.heat >= 60 && isSmart && !isRNGFail) {
+                moneyEarned = Math.floor(moneyEarned * 0.5);
+                resultDesc += "<br><br><em>(Doanh thu giảm sút vì Page của bạn đang bị nền tảng bóp tương tác do bị Report quá nhiều).</em>";
+            }
+
+            let color = finalSuccess ? "var(--success)" : (heatEarned > 30 ? "var(--danger)" : "var(--warning)");
+            let icon = finalSuccess ? "🤑" : (heatEarned > 30 ? "🚩" : "🤡");
+            let titleStr = finalSuccess ? "VIRAL BÙNG NỔ!" : "CÓ BIẾN!";
+
+            // Nhảy số mượt
+            animateValue("ui-money", state.money, state.money + moneyEarned, 800);
+            animateValue("ui-heat", state.heat, Math.min(state.heat + heatEarned, 100), 800);
+
+            state.money += moneyEarned;
+            state.heat += heatEarned;
+            if(state.heat > 100) state.heat = 100;
+
+            const fbCard = document.getElementById('fb-card');
+            fbCard.style.borderTopColor = color; 
+            
+            // Ép chạy animation
+            const iconContainer = document.getElementById('fb-header');
+            const oldIcon = document.getElementById('fb-icon');
+            if(oldIcon) oldIcon.remove();
+            
+            const newIcon = document.createElement('div');
+            newIcon.id = 'fb-icon';
+            newIcon.className = 'fb-icon';
+            newIcon.innerText = icon;
+            iconContainer.prepend(newIcon);
+
+            const fbTitle = document.getElementById('fb-title');
+            fbTitle.innerText = titleStr;
+            fbTitle.style.color = color;
+
+            document.getElementById('fb-desc').innerHTML = resultDesc;
+            document.getElementById('fb-money').innerText = `+$${moneyEarned.toLocaleString()}`;
+            document.getElementById('fb-heat').innerText = `+${heatEarned}%`;
+            
+            document.getElementById('fb-lesson').innerHTML = db.lesson ?? db.detox;
+
+            const btnNext = document.getElementById('btn-next');
+            if (state.heat >= 100) {
+                btnNext.innerHTML = "TÀI KHOẢN BAY MÀU 🚫";
+                btnNext.style.background = "linear-gradient(180deg, #ff7eb3, #ff4757)";
+                btnNext.style.boxShadow = "0 8px 0 #c0392b";
+                btnNext.onclick = () => endGame(false);
+            } else {
+                if(state.turn === 4) { // Dừng sau 5 câu
+                    btnNext.innerHTML = "HOÀN TẤT CHIẾN DỊCH 🏆";
+                } else {
+                    btnNext.innerHTML = "LÊN BÀI TIẾP THEO ⏭";
+                }
+                btnNext.style.background = "linear-gradient(180deg, #70a1ff, #5352ed)";
+                btnNext.style.boxShadow = "0 8px 0 #3742fa";
+                btnNext.onclick = () => nextLevel();
+            }
+
+            switchScreen('feedback-screen');
+        }
+
+        function nextLevel() {
+            state.turn++;
+            loadLevel();
+        }
+
+        function endGame(isWin) {
+            document.getElementById('hud').classList.add('hidden');
+
             const title = document.getElementById('end-title');
             const desc = document.getElementById('end-desc');
+            const icon = document.getElementById('end-icon');
 
-            if (state.heat >= 100) {
-                endScreen.style.display = 'flex';
-                title.innerText = "BUSTED\nBỊ BẮT";
-                title.style.color = "var(--neon-red)";
-                desc.innerHTML = `Lực lượng an ninh đã truy vết IP của bạn do 🚨 HEAT chạm đỉnh.<br><br>
-                                  Đã rửa: <strong style="color:var(--neon-green)">$${state.money.toLocaleString()}</strong><br><br>
-                                  <span style="color:#8b949e; font-size:0.9rem;">Bài học: Hãy cẩn trọng trước những thông tin đánh mạnh vào lòng tham và nỗi sợ hãi trên MXH.</span>`;
-            } 
-            else if (state.completedIds.length === database.length) {
-                endScreen.style.display = 'flex';
-                title.innerText = "MISSION\nCLEARED";
-                title.style.color = "var(--neon-green)";
-                desc.innerHTML = `Lùa gà thành công toàn bộ mạng lưới không dấu vết.<br><br>
-                                  Doanh thu: <strong style="color:var(--neon-green)">$${state.money.toLocaleString()}</strong><br><br>
-                                  <span style="color:#8b949e; font-size:0.9rem;">Bằng cách tự tay dựng các bẫy này, bạn đã hình thành "kháng thể" chống lại tin giả và lừa đảo ngoài đời thực.</span>`;
+            if (!isWin) {
+                icon.innerText = "🚫";
+                title.innerText = "BỊ PHONG SÁT!";
+                title.style.color = "var(--danger)";
+                desc.innerHTML = `Thanh Cờ Đỏ (Report) đã chạm 100%. Cộng đồng MXH và các thuật toán Fact-check đã hợp lực đánh sập toàn bộ hệ thống Page rác của bạn!<br><br>
+                                  Bạn đã kiếm được <strong style="color:var(--success); font-size:1.4rem;">$${state.money.toLocaleString()}</strong> trước khi bị bay màu.<br><br>
+                                  <div style="background:#ff475711; padding:15px; border-radius:15px; border: 2px dashed var(--danger); font-size: 0.95rem; font-weight:700;">
+                                    BÀI HỌC: Kẻ tung tin giả cực kỳ tinh vi. Hãy luôn giữ cái đầu lạnh, tránh bấm Share vội vàng trước những tin tức kích thích Phẫn Nộ hoặc Tham Lam.
+                                  </div>`;
+            } else {
+                icon.innerText = "👑";
+                title.innerText = "TRÙM THAO TÚNG!";
+                title.style.color = "var(--success)";
+                desc.innerHTML = `Bạn đã hoàn thành 5 chiến dịch tin giả mà không bị thuật toán đánh gậy. Bạn chính thức trở thành Ông trùm truyền thông bẩn!<br><br>
+                                  Doanh thu từ Ads: <br><strong style="color:var(--success); font-size:1.8rem;">$${state.money.toLocaleString()}</strong><br><br>
+                                  <div style="background:#2ed57311; padding:15px; border-radius:15px; border: 2px dashed var(--success); font-size: 0.95rem; font-weight:700;">
+                                    TỔNG KẾT: Bằng việc tự tay đóng vai kẻ bịa chuyện trong game, não bộ bạn đã sinh ra "kháng thể". Bạn sẽ rất khó bị dắt mũi bởi các thủ đoạn tương tự ngoài đời!
+                                  </div>`;
             }
+
+            switchScreen('end-screen');
         }
+
     </script>
 </body>
 </html>
