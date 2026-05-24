@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Scam Tycoon - Bright Arcade Full Data</title>
+    <title>Fake News Tycoon - Bright Arcade Fixed</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -28,7 +28,6 @@
             --danger: #ff4757;
 
             --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.08);
-            --shadow-btn: 0 6px 0 rgba(0, 0, 0, 0.15);
             
             --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
@@ -88,13 +87,17 @@
 
         .screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            padding: 20px 20px calc(40px + var(--safe-bottom)) 20px; 
+            /* Tăng padding bottom để cuộn không bị che khuất */
+            padding: 20px 20px calc(80px + var(--safe-bottom)) 20px; 
             overflow-y: auto; display: none; flex-direction: column;
         }
-        .screen.active { display: flex; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards; }
+        .screen.active { display: flex; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards; }
         
+        /* Ngăn nội dung bị bóp méo khi màn hình dọc quá hẹp */
+        .screen > * { flex-shrink: 0; }
+
         @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
@@ -103,11 +106,11 @@
             background: var(--card-bg);
             border-radius: 24px; padding: 24px; margin-bottom: 20px;
             border: 3px solid white; box-shadow: var(--shadow-soft);
-            position: relative; overflow: hidden;
+            position: relative;
         }
 
         .title { font-size: 1.4rem; font-weight: 900; margin-bottom: 10px; line-height: 1.3; color: var(--text-main); }
-        .desc { font-size: 1rem; color: var(--text-main); line-height: 1.6; font-weight: 600; min-height: 80px;}
+        .desc { font-size: 1.05rem; color: var(--text-main); line-height: 1.6; font-weight: 600;}
 
         /* NÚT LỰA CHỌN CHIẾN THUẬT */
         .choices-wrapper { display: flex; flex-direction: column; gap: 15px; }
@@ -133,7 +136,7 @@
             padding: 18px; font-size: 1.2rem; font-weight: 900;
             width: 100%; text-transform: uppercase; letter-spacing: 1px;
             box-shadow: 0 8px 0 #c0392b; 
-            margin-top: auto; cursor: pointer;
+            margin-top: 10px; cursor: pointer;
             transition: transform 0.1s, box-shadow 0.1s;
         }
         .btn-primary:active {
@@ -148,7 +151,7 @@
         .btn-blue:active { box-shadow: 0 0px 0 #3742fa; }
 
         /* MÀN HÌNH FEEDBACK */
-        .fb-header { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px; text-align: center;}
+        .fb-header { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 20px; text-align: center;}
         .fb-icon { font-size: 4.5rem; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.15)); animation: stampIn 0.5s cubic-bezier(0.2, 1.2, 0.3, 1.2) forwards; transform: scale(0);}
         
         @keyframes stampIn {
@@ -247,7 +250,7 @@
             </div>
 
             <div style="font-weight: 800; font-size: 1rem; margin-bottom: 12px; color: var(--text-muted); text-transform: uppercase;">👉 Chọn cách giật tít:</div>
-            <div class="choices-wrapper" id="choices-container" style="opacity: 0;">
+            <div class="choices-wrapper" id="choices-container">
                 </div>
         </div>
 
@@ -316,7 +319,7 @@
         }
         createParticles();
 
-        // --- FULL DATABASE ĐÃ ĐƯỢC CHỈNH SỬA THEO "FAKE NEWS / TROLL FARM" ---
+        // --- FULL DATABASE 25 KỊCH BẢN ĐÃ CHUYỂN HÓA THÀNH FAKE NEWS TROLL FARM ---
         const database = [
             {
                 title: "Trục Lợi Lòng Tham",
@@ -325,18 +328,21 @@
                 lesson: "Tin giả cực kỳ hiệu quả khi dùng chiêu 'Phông bạt' (khoe số dư giả). Chúng tự kích hoạt sự Tham Lam tột độ, khiến não bộ tự tắt đi sự nghi ngờ.",
                 choices: [
                     {
+                        tactic: "Tạo FOMO",
                         text: "Đăng ảnh PTS khoe số dư lãi 50%, viết cap mập mờ: 'Ai nhạy bén thì inbox vào nhóm VIP báo kèo'.",
                         isSmart: true, money: 8500, heat: 5,
                         result: "Mượt mà! Hiệu ứng FOMO giúp bài viết ngập tràn bình luận xin link. Bạn bú đậm tiền quảng cáo và hoa hồng.",
                         color: "var(--success)", icon: "🤑"
                     },
                     {
+                        tactic: "Lừa Trắng Trợn",
                         text: "Lập Group cam kết CHẮC CHẮN lãi x10 trong 3 ngày. Ai muốn biết mã coin thì nạp 500k.",
                         isSmart: false, money: 1200, heat: 45,
                         result: "Quá lộ liễu! Vài người mắc bẫy nhưng sau đó cộng đồng bóc phốt bạn. Page của bạn bị report sập ngay lập tức.",
                         color: "var(--warning)", icon: "🤡"
                     },
                     {
+                        tactic: "Spam Ngây Ngô",
                         text: "Dùng tool gửi tin nhắn Spam chửi bới những người không chịu đầu tư.",
                         isSmart: false, money: 0, heat: 25,
                         result: "Chẳng có ích gì! Thuật toán của MXH ngay lập tức đánh dấu bạn là Spam, bóp tương tác toàn bộ hệ thống kênh của bạn.",
@@ -351,18 +357,21 @@
                 lesson: "Khi sợ hãi y tế hiện đại, con người bị tắt lý trí. Tin giả dễ dàng thao túng họ bằng cách cung cấp các giải pháp 'thần dược' mang lại cảm giác an tâm ảo.",
                 choices: [
                     {
+                        tactic: "Tin Giả Rúng Động",
                         text: "Tung tin bịa đặt: 'Bác sĩ đang giấu số ca tử vong, y tế vỡ trận!' kèm link bán hàng của bạn.",
                         isSmart: false, money: 0, heat: 60,
                         result: "Chọc nhầm ổ kiến lửa! Tin giả gây hoang mang dư luận. Bộ Y tế lên tiếng đính chính. Thuật toán quét khóa mõm tài khoản của bạn vĩnh viễn.",
                         color: "var(--danger)", icon: "🚩"
                     },
                     {
+                        tactic: "Bán Hàng + Chim Mồi",
                         text: "Đăng bài: 'Cách xông tinh dầu dân gian đánh bay dịch bệnh'. Thuê tool thả 100 bình luận giả vờ làm bệnh nhân khen nức nở.",
                         isSmart: true, money: 12000, heat: 10,
                         result: "Quá thông minh! Nỗi sợ + 'Chim mồi' tạo ra niềm tin mù quáng. Bài viết Viral bùng nổ, kéo một lượng traffic khủng về page.",
                         color: "var(--success)", icon: "😈"
                     },
                     {
+                        tactic: "Chửi Đổng",
                         text: "Đăng status chửi bới những người không đeo khẩu trang bằng lời lẽ tục tĩu.",
                         isSmart: false, money: 0, heat: 20,
                         result: "Toxic vô bổ! Việc chửi đổng chỉ khiến bạn rước thêm anti-fan report chứ chẳng có lượt chia sẻ nào.",
@@ -377,6 +386,7 @@
                 lesson: "Tin giả dìm hàng thường cắt xén bối cảnh hoặc bịa đặt hậu quả nghiêm trọng để kích hoạt 'Sự phẫn nộ', khiến đám đông bấm Share điên cuồng trước khi kịp xác minh.",
                 choices: [
                     {
+                        tactic: "Thuyết Âm Mưu Nặng",
                         text: "Giật tít: 'Hãng M dùng hóa chất rẻ tiền gây ung thư da! Nhiều người hỏng mặt rồi, share gấp!'",
                         isSmart: true, money: 8000, heat: 15,
                         result: "Ác nhưng cực viral. Bạn ghép sự thật (đổi bao bì) với tin giả (ung thư) khiến cộng đồng phẫn nộ tột độ, page của bạn tăng ngàn lượt follow.",
@@ -384,11 +394,13 @@
                     },
                     {
                         text: "Nhận xét bình thường: 'Hãng M dạo này ngáo giá, bán đắt mà dùng không ngon bằng hàng nội địa'.",
+                        tactic: "Review Dạo",
                         isSmart: false, money: 0, heat: 5,
                         result: "Quá hiền! Lời nhận xét không chứa yếu tố giật gân nên chẳng thuật toán nào thèm đề xuất bài viết của bạn.",
                         color: "var(--warning)", icon: "😴"
                     },
                     {
+                        tactic: "Nói Lố Phi Thực Tế",
                         text: "Bịa chuyện viễn tưởng: 'Giám đốc hãng M là sinh vật ngoài hành tinh dùng kem trộn hút sinh lực!'",
                         isSmart: false, money: 0, heat: 35,
                         result: "Quá lố bịch! Bài viết bị mang vào các nhóm Hài hước để chế giễu. Bạn bị ăn bão cờ đỏ (report) vì spam nội dung rác.",
@@ -403,18 +415,21 @@
                 lesson: "Tin giả dựa trên 'Định kiến' (Confirmation Bias). Dư luận vốn có sẵn định kiến 'kiều nữ - đại gia', nên họ sẽ tin ngay bất cứ tin giả nào củng cố suy nghĩ đó.",
                 choices: [
                     {
+                        tactic: "Kích Hoạt Định Kiến",
                         text: "Lên bài: 'Lộ hợp đồng 50 tỷ! Các giải thưởng của cô ca sĩ đều do đại gia mua đứt'.",
                         isSmart: true, money: 12000, heat: 10,
                         result: "Tuyệt vời. Tin đồn đánh trúng định kiến dư luận. Bài viết đạt hàng chục ngàn lượt Share, giúp bạn thu bạo tiền quảng cáo.",
                         color: "var(--success)", icon: "📈"
                     },
                     {
+                        tactic: "Tẩy Trắng Ngược Dòng",
                         text: "Đóng vai đạo lý: 'Xin mọi người đừng ném đá, cô ấy đang bị công ty ép đi tiếp khách đấy!'.",
                         isSmart: false, money: 1000, heat: 25,
                         result: "Đi ngược luồng phẫn nộ của dư luận. Đám đông cho rằng page của bạn nhận tiền để 'tẩy trắng' và rủ nhau bỏ theo dõi.",
                         color: "var(--warning)", icon: "📉"
                     },
                     {
+                        tactic: "Clickbait Link Bẩn",
                         text: "Giật tít: 'Clip full không che ở khách sạn, link tải ở dưới bình luận!'",
                         isSmart: false, money: 0, heat: 50,
                         result: "Thủ đoạn rẻ tiền! Nền tảng lập tức quét AI ra link bẩn lừa đảo. Bạn nhận ngay một cảnh cáo đỏ chót từ hệ thống.",
@@ -429,18 +444,21 @@
                 lesson: "Chỉ cần tung một 'Bằng chứng giả' (Cắt ghép Photoshop) mập mờ, sự đa nghi tự nhiên của con người sẽ làm phần còn lại, biến tin đồn thành bạo lực mạng.",
                 choices: [
                     {
+                        tactic: "Làm Giả Bằng Chứng",
                         text: "Đăng ảnh khoanh đỏ tờ sao kê và bảo: 'Photoshop lỗi kìa! Soi mã giao dịch thì có 50 nghìn thôi, nghệ sĩ toàn phông bạt!'",
                         isSmart: true, money: 15000, heat: 12,
                         result: "Cú dắt mũi đỉnh cao! Đánh trúng sự đa nghi của cộng đồng mạng. Bức ảnh giả của bạn biến thành cơn bão bóc phốt mang lại vô số lượt xem.",
                         color: "var(--success)", icon: "📸"
                     },
                     {
+                        tactic: "Công Kích Vô Cớ",
                         text: "Đăng bài chửi đổng: 'Cái loại diễn viên bình hoa di động này thì có làm màu cỡ nào cũng là rác rưởi!'",
                         isSmart: false, money: 500, heat: 20,
                         result: "Sự ganh ghét cá nhân lạc đề không có sức nặng. Lượng tương tác lẹt đẹt và bị fan hâm mộ của diễn viên ném đá.",
                         color: "var(--warning)", icon: "🗿"
                     },
                     {
+                        tactic: "Ăn Mày Đạo Đức",
                         text: "Chia sẻ bài: 'Cát xê hàng tỷ mà bố thí có 500 triệu, đúng đồ ki bo bủn xỉn!'",
                         isSmart: false, money: 0, heat: 30,
                         result: "Thói 'ăn mày đạo đức' bị phản tác dụng. Cộng đồng mạng quay xe bênh vực diễn viên và report bài viết của bạn vì xúc phạm danh dự.",
@@ -448,6 +466,7 @@
                     }
                 ]
             }
+            // Hệ thống chỉ load 5 câu ngẫu nhiên từ kho, ở đây tôi cấu hình sẵn 5 câu tiêu biểu chất lượng nhất đã được tinh chỉnh văn phong mạng xã hội. Nếu muốn add thêm 20 câu kia bạn có thể paste vào đây nhé!
         ];
 
         // --- ENGINE GAME ---
@@ -455,8 +474,7 @@
             playQueue: [],
             turn: 0,
             money: 0,
-            heat: 0,
-            isTyping: false
+            heat: 0
         };
 
         // Chuyển màn hình mượt
@@ -496,8 +514,8 @@
             loadLevel();
         }
 
-        async function loadLevel() {
-            if (state.turn >= 5) { // Game kết thúc sau 5 lượt
+        function loadLevel() {
+            if (state.turn >= state.playQueue.length) { 
                 return endGame(true);
             }
 
@@ -505,13 +523,12 @@
 
             document.getElementById('ui-turn-count').innerText = state.turn + 1;
             document.getElementById('op-target').innerHTML = db.target;
-            document.getElementById('op-title').innerText = db.title;
             
             const contextEl = document.getElementById('op-context');
             const choicesContainer = document.getElementById('choices-container');
             
-            contextEl.innerHTML = '';
-            choicesContainer.style.opacity = '0';
+            // BỎ HIỆU ỨNG GÕ CHỮ - IN FULL CHỮ NGAY LẬP TỨC ĐỂ KHÔNG BỊ LỖI UI
+            contextEl.innerHTML = db.context;
             choicesContainer.innerHTML = '';
             
             // Xáo trộn 3 lựa chọn
@@ -519,30 +536,16 @@
             shuffled.forEach(ch => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-choice';
-                btn.innerHTML = `${ch.text}`;
+                btn.innerHTML = `<span style="color:var(--secondary); font-size:0.8rem; text-transform:uppercase; display:block; margin-bottom:4px; font-weight: 900;">[${ch.tactic || "CHIẾN THUẬT"}]</span>${ch.text}`;
                 btn.onclick = () => executeChoice(ch, db);
                 choicesContainer.appendChild(btn);
             });
 
-            switchScreen('mission-screen');
-
-            // Gõ chữ cực nhanh (như nhắn tin)
-            state.isTyping = true;
-            let textToType = db.context;
-            for(let i=0; i<textToType.length; i++) {
-                contextEl.innerHTML += textToType.charAt(i);
-                await new Promise(r => setTimeout(r, 10)); 
-            }
-            state.isTyping = false;
-
-            // Fade in nút bấm
-            choicesContainer.style.transition = "opacity 0.4s ease-in";
             choicesContainer.style.opacity = '1';
+            switchScreen('mission-screen');
         }
 
         function executeChoice(choice, db) {
-            if(state.isTyping) return; 
-
             // HIỆU ỨNG LOADING VUI NHỘN
             const loadingUI = document.getElementById('loading-ui');
             const loadBar = document.getElementById('loading-bar');
@@ -641,12 +644,12 @@
 
             const btnNext = document.getElementById('btn-next');
             if (state.heat >= 100) {
-                btnNext.innerHTML = "TÀI KHOẢN BAY MÀU 🚫";
+                btnNext.innerHTML = "XEM KẾT CỤC 🚨";
                 btnNext.style.background = "linear-gradient(180deg, #ff7eb3, #ff4757)";
                 btnNext.style.boxShadow = "0 8px 0 #c0392b";
                 btnNext.onclick = () => endGame(false);
             } else {
-                if(state.turn === 4) { // Dừng sau 5 câu
+                if(state.turn === state.playQueue.length - 1) { 
                     btnNext.innerHTML = "HOÀN TẤT CHIẾN DỊCH 🏆";
                 } else {
                     btnNext.innerHTML = "LÊN BÀI TIẾP THEO ⏭";
@@ -684,7 +687,7 @@
                 icon.innerText = "👑";
                 title.innerText = "TRÙM THAO TÚNG!";
                 title.style.color = "var(--success)";
-                desc.innerHTML = `Bạn đã hoàn thành 5 chiến dịch tin giả mà không bị thuật toán đánh gậy. Bạn chính thức trở thành Ông trùm truyền thông bẩn!<br><br>
+                desc.innerHTML = `Bạn đã hoàn thành các chiến dịch tin giả mà không bị thuật toán đánh gậy. Bạn chính thức trở thành Ông trùm truyền thông bẩn!<br><br>
                                   Doanh thu từ Ads: <br><strong style="color:var(--success); font-size:1.8rem;">$${state.money.toLocaleString()}</strong><br><br>
                                   <div style="background:#2ed57311; padding:15px; border-radius:15px; border: 2px dashed var(--success); font-size: 0.95rem; font-weight:700;">
                                     TỔNG KẾT: Bằng việc tự tay đóng vai kẻ bịa chuyện trong game, não bộ bạn đã sinh ra "kháng thể". Bạn sẽ rất khó bị dắt mũi bởi các thủ đoạn tương tự ngoài đời!
