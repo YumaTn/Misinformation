@@ -17,7 +17,6 @@
             --font-mono: 'Fira Code', monospace;
             --font-display: 'Orbitron', sans-serif;
             
-            /* Khu vực an toàn cho tai thỏ/bottom bar trên iOS */
             --safe-top: env(safe-area-inset-top, 0px);
             --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
@@ -28,7 +27,9 @@
             background-color: var(--bg);
             color: var(--text-main);
             font-family: var(--font-mono);
+            /* SỬA LỖI CHE NÚT Ở ĐÂY: Dùng 100dvh thay vì 100vh */
             height: 100vh;
+            height: 100dvh; 
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -37,13 +38,13 @@
 
         /* Hiệu ứng sọc CRT */
         body::after {
-            content: ""; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+            content: ""; position: absolute; top: 0; left: 0; width: 100vw; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             background-size: 100% 2px, 3px 100%;
             pointer-events: none; z-index: 9999;
         }
 
-        /* HEADER - HUD (Gọn gàng cho Mobile) */
+        /* HEADER - HUD */
         .hud {
             padding: calc(10px + var(--safe-top)) 15px 10px 15px;
             border-bottom: 2px solid var(--neon-blue);
@@ -62,7 +63,7 @@
         .money { color: var(--neon-green); text-shadow: 0 0 8px rgba(57, 255, 20, 0.4); }
         .heat { color: var(--neon-red); text-shadow: 0 0 8px rgba(255, 7, 58, 0.4); }
 
-        /* MAIN CONTAINER CHỨA CÁC MÀN HÌNH (APP SCREENS) */
+        /* MAIN CONTAINER */
         .app-container {
             flex: 1;
             position: relative;
@@ -73,9 +74,10 @@
         /* KHUNG CHUẨN CỦA TỪNG MÀN HÌNH */
         .app-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            padding: 15px;
+            /* SỬA LỖI CHE NÚT Ở ĐÂY: Thêm 40px padding ở đáy */
+            padding: 15px 15px 40px 15px; 
             overflow-y: auto;
-            display: none; /* Ẩn đi, chỉ hiện màn active */
+            display: none;
             flex-direction: column;
             animation: fadeIn 0.3s ease-out;
         }
@@ -150,7 +152,7 @@
             flex: 1; padding: 15px; overflow-y: auto;
             font-size: 0.85rem; display: flex; flex-direction: column;
             border-radius: 6px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-            margin-bottom: 15px;
+            margin-bottom: 15px; min-height: 250px;
         }
         .term-line { margin-bottom: 10px; line-height: 1.5; }
         .sys { color: var(--neon-blue); }
@@ -163,6 +165,8 @@
             padding: 16px; font-family: var(--font-display); font-weight: bold;
             font-size: 1rem; text-transform: uppercase; border-radius: 6px;
             box-shadow: 0 0 15px rgba(0, 243, 255, 0.3); display: none; width: 100%;
+            /* SỬA LỖI CHE NÚT Ở ĐÂY: Đẩy nút lên 20px */
+            margin-bottom: 20px;
         }
         .btn-primary:active { background: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.6); }
 
@@ -198,7 +202,7 @@
             3. Kiếm tiền ($) từ sự cả tin của đám đông.<br><br>
             <span style="color: var(--neon-red); font-weight:bold;">[!] CẢNH BÁO:</span> Mức độ bị truy nã (HEAT) đạt 100% -> Bạn sẽ bị bắt.
         </div>
-        <button class="btn-primary" style="display: block; max-width: 400px;" onclick="startGame()">TRUY CẬP HỆ THỐNG</button>
+        <button class="btn-primary" style="display: block; max-width: 400px; margin-bottom: 0;" onclick="startGame()">TRUY CẬP HỆ THỐNG</button>
     </div>
 
     <header class="hud">
@@ -245,7 +249,7 @@
     <div class="overlay" id="end-screen" style="display: none;">
         <div class="title-glitch" id="end-title" style="color: var(--neon-red);">...</div>
         <div id="end-desc" style="line-height: 1.6; font-size: 1rem; margin-bottom: 30px; text-align: left; padding: 0 15px;"></div>
-        <button class="btn-primary" style="display: block; max-width: 400px;" onclick="location.reload()">XÓA DẤU VẾT & CHƠI LẠI</button>
+        <button class="btn-primary" style="display: block; max-width: 400px; margin-bottom: 0;" onclick="location.reload()">XÓA DẤU VẾT & CHƠI LẠI</button>
     </div>
 
     <script>
