@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Fake News Tycoon - Bright Arcade Fixed</title>
+    <title>Fake News Tycoon - Animation Enhanced</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -19,16 +19,15 @@
             --text-main: #2d3748;
             --text-muted: #718096;
             
-            --primary: #ff6b81;       /* Đỏ hồng Coral - rực rỡ */
+            --primary: #ff6b81;       
             --primary-dark: #ff4757;
-            --secondary: #5352ed;     /* Xanh Tím - Năng động */
+            --secondary: #5352ed;     
             
             --success: #2ed573;
             --warning: #ffa502;
             --danger: #ff4757;
 
             --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.08);
-            
             --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
 
@@ -39,7 +38,6 @@
         }
 
         body {
-            /* Background sáng, đổi màu liên tục rất đẹp */
             background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3), var(--bg-gradient-4));
             background-size: 400% 400%;
             animation: gradientMove 15s ease infinite;
@@ -66,7 +64,7 @@
             100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        /* HUD - THANH TRẠNG THÁI (Trắng, bóng bẩy) */
+        /* HUD - THANH TRẠNG THÁI */
         .hud-wrapper { padding: 15px 15px 0 15px; z-index: 10; position: relative; }
         .hud {
             background: var(--card-bg);
@@ -74,7 +72,7 @@
             display: flex; justify-content: space-between; align-items: center;
             box-shadow: var(--shadow-soft); border: 2px solid white;
         }
-        .stat-item { display: flex; align-items: center; gap: 8px; }
+        .stat-item { display: flex; align-items: center; gap: 8px; transition: transform 0.3s ease; }
         .stat-icon { font-size: 1.5rem; background: #f1f2f6; width: 42px; height: 42px; display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
         .stat-info { display: flex; flex-direction: column; }
         .stat-label { font-size: 0.65rem; color: var(--text-muted); font-weight: 800; letter-spacing: 1px; text-transform: uppercase;}
@@ -82,22 +80,27 @@
         .money { color: var(--success); }
         .heat { color: var(--danger); }
 
+        /* HIỆU ỨNG RUNG CẢNH BÁO KHI TĂNG CỜ ĐỎ */
+        .shake-anim { animation: shake 0.5s ease-in-out; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
         /* KHU VỰC CHÍNH CHỨA MÀN HÌNH */
         .main-container { flex: 1; position: relative; overflow: hidden; z-index: 10; }
 
         .screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Tăng padding bottom để cuộn không bị che khuất */
             padding: 20px 20px calc(80px + var(--safe-bottom)) 20px; 
             overflow-y: auto; display: none; flex-direction: column;
         }
-        .screen.active { display: flex; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards; }
-        
-        /* Ngăn nội dung bị bóp méo khi màn hình dọc quá hẹp */
+        .screen.active { display: flex; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards; }
         .screen > * { flex-shrink: 0; }
 
         @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+            0% { opacity: 0; transform: scale(0.95) translateY(15px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
@@ -110,7 +113,17 @@
         }
 
         .title { font-size: 1.4rem; font-weight: 900; margin-bottom: 10px; line-height: 1.3; color: var(--text-main); }
-        .desc { font-size: 1.05rem; color: var(--text-main); line-height: 1.6; font-weight: 600;}
+        
+        /* Hiệu ứng xuất hiện nội dung mượt mà không lo lỗi chữ */
+        .desc { 
+            font-size: 1.05rem; color: var(--text-main); line-height: 1.6; font-weight: 600;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* NÚT LỰA CHỌN CHIẾN THUẬT */
         .choices-wrapper { display: flex; flex-direction: column; gap: 15px; }
@@ -121,15 +134,24 @@
             font-size: 1rem; color: var(--text-main); line-height: 1.5; font-weight: 700;
             cursor: pointer; position: relative;
             box-shadow: 0 6px 0 #ced6e0;
-            transition: transform 0.1s, box-shadow 0.1s;
+            transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.25), box-shadow 0.15s ease, border-color 0.2s ease;
+        }
+        
+        /* Hiệu ứng di chuột/chạm nhẹ vào lựa chọn */
+        @media (hover: hover) {
+            .btn-choice:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 0 #ced6e0;
+                border-color: var(--secondary);
+            }
         }
         .btn-choice:active {
-            transform: translateY(6px);
+            transform: translateY(6px) scale(0.98);
             box-shadow: 0 0px 0 #ced6e0;
-            border-color: var(--secondary); background: #f1f2f6;
+            background: #f1f2f6;
         }
 
-        /* NÚT ACTION CHÍNH */
+        /* NÚT ACTION CHÍNH VÀ HIỆU ỨNG MẠCH ĐẬP (PULSE) */
         .btn-primary {
             background: linear-gradient(180deg, #ff7eb3, #ff4757);
             color: #fff; border: none; border-radius: 20px;
@@ -138,6 +160,7 @@
             box-shadow: 0 8px 0 #c0392b; 
             margin-top: 10px; cursor: pointer;
             transition: transform 0.1s, box-shadow 0.1s;
+            animation: buttonPulse 2s infinite ease-in-out;
         }
         .btn-primary:active {
             transform: translateY(8px);
@@ -147,21 +170,33 @@
         .btn-blue {
             background: linear-gradient(180deg, #70a1ff, #5352ed);
             box-shadow: 0 8px 0 #3742fa;
+            animation: buttonPulseBlue 2s infinite ease-in-out;
         }
         .btn-blue:active { box-shadow: 0 0px 0 #3742fa; }
 
+        @keyframes buttonPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 0 #c0392b; }
+            50% { transform: scale(1.02); box-shadow: 0 10px 15px rgba(255, 71, 87, 0.3), 0 8px 0 #c0392b; }
+        }
+        @keyframes buttonPulseBlue {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 0 #3742fa; }
+            50% { transform: scale(1.02); box-shadow: 0 10px 15px rgba(83, 82, 237, 0.3), 0 8px 0 #3742fa; }
+        }
+
         /* MÀN HÌNH FEEDBACK */
         .fb-header { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 20px; text-align: center;}
-        .fb-icon { font-size: 4.5rem; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.15)); animation: stampIn 0.5s cubic-bezier(0.2, 1.2, 0.3, 1.2) forwards; transform: scale(0);}
+        .fb-icon { font-size: 4.5rem; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.15)); animation: stampIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.3) forwards; transform: scale(0);}
         
         @keyframes stampIn {
-            0% { transform: scale(0) rotate(-15deg); }
-            100% { transform: scale(1) rotate(0deg); }
+            0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+            70% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
 
         .fb-title { font-weight: 900; font-size: 1.8rem; text-transform: uppercase; letter-spacing: -0.5px;}
 
-        .reward-box { display: flex; gap: 12px; margin-bottom: 20px; }
+        /* Điểm thưởng bay lên nhẹ */
+        .reward-box { display: flex; gap: 12px; margin-bottom: 20px; animation: fadeInUp 0.6s ease-out 0.2s both; }
         .reward-card {
             background: #f1f2f6; border-radius: 18px; padding: 15px; flex: 1; text-align: center;
             border: 2px solid #ffffff; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
@@ -171,6 +206,7 @@
         .lesson-box {
             background: #eccc6822; border: 2px dashed #ffa502;
             padding: 18px; border-radius: 18px; font-size: 0.95rem; line-height: 1.6; color: #2f3542; font-weight: 700;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
         }
 
         /* MÀN HÌNH CHỜ (LOADING) */
@@ -180,11 +216,11 @@
             z-index: 100; display: none; flex-direction: column;
             justify-content: center; align-items: center; gap: 20px;
         }
-        .loading-emoji { font-size: 4rem; animation: bounce 0.5s infinite alternate; }
+        .loading-emoji { font-size: 4rem; animation: bounce 0.5s infinite alternate cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
         
         .loading-bar-wrapper { width: 80%; max-width: 300px; height: 16px; background: #dfe4ea; border-radius: 20px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); border: 2px solid white;}
-        .loading-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff7eb3, #ff4757); border-radius: 20px; transition: width 0.1s; }
+        .loading-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff7eb3, #ff4757); border-radius: 20px; transition: width 0.1s ease-out; }
         .loading-text { font-weight: 800; color: var(--primary-dark); font-size: 1rem; text-transform: uppercase;}
 
         .hidden { display: none !important; }
@@ -196,10 +232,13 @@
     <div class="particles" id="particles"></div>
 
     <div class="screen active" id="start-screen" style="justify-content: center;">
-        <div class="card text-center" style="margin-bottom: 20px; padding: 40px 20px;">
-            <div style="font-size: 5rem; margin-bottom: 10px;">🦊</div>
-            <h1 style="color: var(--primary-dark); margin-bottom: 10px; font-weight: 900; font-size: 2.2rem; text-transform: uppercase;">Fake News Tycoon</h1>
-            <p style="color: var(--text-muted); font-size: 1rem; font-weight: 700;">Hệ Thống Tiêm Chủng Tâm Lý</p>
+        <div class="card text-center" style="margin-bottom: 20px; padding: 35px 20px; display: flex; flex-direction: column; align-items: center;">
+            <h1 style="color: var(--primary-dark); margin-bottom: 5px; font-weight: 900; font-size: 2.2rem; text-transform: uppercase;">Fake News Tycoon</h1>
+            <p style="color: var(--text-muted); font-size: 1rem; font-weight: 700; margin-bottom: 20px;">Hệ Thống Tiêm Chủng Tâm Lý</p>
+            
+            <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid white; box-shadow: 0 6px 15px rgba(0,0,0,0.15); animation: bounce 0.6s infinite alternate; margin-bottom: 5px;">
+                <img src="logo.jpg" alt="Game Logo" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+            </div>
         </div>
         
         <div class="card" style="border-left: 6px solid var(--warning); padding: 18px;">
@@ -217,14 +256,14 @@
 
     <div class="hud-wrapper hidden" id="hud">
         <div class="hud">
-            <div class="stat-item">
+            <div class="stat-item" id="hud-money-box">
                 <div class="stat-icon">💸</div>
                 <div class="stat-info">
                     <span class="stat-label">Doanh Thu Ads</span>
                     <span class="stat-val money">$<span id="ui-money">0</span></span>
                 </div>
             </div>
-            <div class="stat-item" style="flex-direction: row-reverse; text-align: right;">
+            <div class="stat-item" id="hud-heat-box" style="flex-direction: row-reverse; text-align: right;">
                 <div class="stat-icon" style="background: #ffeaa7;">🚩</div>
                 <div class="stat-info">
                     <span class="stat-label">Cờ Đỏ (Report)</span>
@@ -303,7 +342,6 @@
     </div>
 
     <script>
-        // --- TẠO EMOJI BAY BACKGROUND CHO SINH ĐỘNG ---
         function createParticles() {
             const container = document.getElementById('particles');
             const icons = ['💸', '👀', '📱', '🔥', '🤫', '📈'];
@@ -319,7 +357,6 @@
         }
         createParticles();
 
-        // --- FULL DATABASE 25 KỊCH BẢN ĐÃ CHUYỂN HÓA THÀNH FAKE NEWS TROLL FARM ---
         const database = [
             {
                 title: "Trục Lợi Lòng Tham",
@@ -466,10 +503,8 @@
                     }
                 ]
             }
-            // Hệ thống chỉ load 5 câu ngẫu nhiên từ kho, ở đây tôi cấu hình sẵn 5 câu tiêu biểu chất lượng nhất đã được tinh chỉnh văn phong mạng xã hội. Nếu muốn add thêm 20 câu kia bạn có thể paste vào đây nhé!
         ];
 
-        // --- ENGINE GAME ---
         let state = {
             playQueue: [],
             turn: 0,
@@ -477,16 +512,14 @@
             heat: 0
         };
 
-        // Chuyển màn hình mượt
         function switchScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => {
                 s.classList.remove('active');
             });
-            void document.getElementById(screenId).offsetWidth; // Reflow
+            void document.getElementById(screenId).offsetWidth; 
             document.getElementById(screenId).classList.add('active');
         }
 
-        // Ticker nhảy số mượt
         function animateValue(id, start, end, duration, prefix = "", suffix = "") {
             const obj = document.getElementById(id);
             if (!obj) return;
@@ -507,7 +540,6 @@
             document.getElementById('hud').classList.remove('hidden');
             document.getElementById('game-container').classList.remove('hidden');
             
-            // Random câu hỏi
             state.playQueue = [...database].sort(() => Math.random() - 0.5);
             state.turn = 0; state.money = 0; state.heat = 0;
 
@@ -527,26 +559,29 @@
             const contextEl = document.getElementById('op-context');
             const choicesContainer = document.getElementById('choices-container');
             
-            // BỎ HIỆU ỨNG GÕ CHỮ - IN FULL CHỮ NGAY LẬP TỨC ĐỂ KHÔNG BỊ LỖI UI
+            // Kích hoạt lại animation CSS mượt mà mỗi khi đổi câu hỏi
+            contextEl.style.animation = 'none';
+            void contextEl.offsetWidth; 
+            contextEl.style.animation = 'fadeInUp 0.5s ease-out forwards';
             contextEl.innerHTML = db.context;
+            
             choicesContainer.innerHTML = '';
             
-            // Xáo trộn 3 lựa chọn
             let shuffled = [...db.choices].sort(() => Math.random() - 0.5);
-            shuffled.forEach(ch => {
+            shuffled.forEach((ch, idx) => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-choice';
+                // Tạo hiệu ứng thác đổ (Staggered fade-in) cho từng nút bấm
+                btn.style.animation = `fadeInUp 0.4s ease-out ${idx * 0.1}s both`;
                 btn.innerHTML = `<span style="color:var(--secondary); font-size:0.8rem; text-transform:uppercase; display:block; margin-bottom:4px; font-weight: 900;">[${ch.tactic || "CHIẾN THUẬT"}]</span>${ch.text}`;
                 btn.onclick = () => executeChoice(ch, db);
                 choicesContainer.appendChild(btn);
             });
 
-            choicesContainer.style.opacity = '1';
             switchScreen('mission-screen');
         }
 
         function executeChoice(choice, db) {
-            // HIỆU ỨNG LOADING VUI NHỘN
             const loadingUI = document.getElementById('loading-ui');
             const loadBar = document.getElementById('loading-bar');
             const loadText = document.getElementById('loading-text');
@@ -576,12 +611,11 @@
                     loadingUI.style.display = 'none';
                     showFeedback(choice, db);
                 }
-            }, 30);
+            }, 25);
         }
 
         function showFeedback(choice, db) {
-            // Logic RNG (20% xui xẻo nếu chọn đúng)
-            let isSmart = choice.match ?? choice.isSmart; // Hỗ trợ cả 2 định dạng data
+            let isSmart = choice.match ?? choice.isSmart; 
             let moneyEarned = choice.reach ?? choice.money; 
             let heatEarned = choice.susp ?? choice.heat;
             let resultDesc = choice.debrief ?? choice.result;
@@ -610,9 +644,20 @@
             let icon = finalSuccess ? "🤑" : (heatEarned > 30 ? "🚩" : "🤡");
             let titleStr = finalSuccess ? "VIRAL BÙNG NỔ!" : "CÓ BIẾN!";
 
-            // Nhảy số mượt
+            // Nhảy số tiền/cờ đỏ mượt
             animateValue("ui-money", state.money, state.money + moneyEarned, 800);
             animateValue("ui-heat", state.heat, Math.min(state.heat + heatEarned, 100), 800);
+
+            // HIỆU ỨNG RUNG HOẶC PHÓNG TO HUD KHI NHẬN THƯỞNG/PHẠT
+            if (!finalSuccess || heatEarned > 15) {
+                const heatBox = document.getElementById('hud-heat-box');
+                heatBox.classList.add('shake-anim');
+                setTimeout(() => heatBox.classList.remove('shake-anim'), 500);
+            } else {
+                const moneyBox = document.getElementById('hud-money-box');
+                moneyBox.style.transform = "scale(1.2)";
+                setTimeout(() => moneyBox.style.transform = "scale(1)", 300);
+            }
 
             state.money += moneyEarned;
             state.heat += heatEarned;
@@ -621,7 +666,6 @@
             const fbCard = document.getElementById('fb-card');
             fbCard.style.borderTopColor = color; 
             
-            // Ép chạy animation
             const iconContainer = document.getElementById('fb-header');
             const oldIcon = document.getElementById('fb-icon');
             if(oldIcon) oldIcon.remove();
@@ -645,8 +689,7 @@
             const btnNext = document.getElementById('btn-next');
             if (state.heat >= 100) {
                 btnNext.innerHTML = "XEM KẾT CỤC 🚨";
-                btnNext.style.background = "linear-gradient(180deg, #ff7eb3, #ff4757)";
-                btnNext.style.boxShadow = "0 8px 0 #c0392b";
+                btnNext.className = "btn-primary"; // Đổi sang màu đỏ nguy hiểm
                 btnNext.onclick = () => endGame(false);
             } else {
                 if(state.turn === state.playQueue.length - 1) { 
@@ -654,8 +697,7 @@
                 } else {
                     btnNext.innerHTML = "LÊN BÀI TIẾP THEO ⏭";
                 }
-                btnNext.style.background = "linear-gradient(180deg, #70a1ff, #5352ed)";
-                btnNext.style.boxShadow = "0 8px 0 #3742fa";
+                btnNext.className = "btn-primary btn-blue";
                 btnNext.onclick = () => nextLevel();
             }
 
@@ -696,7 +738,6 @@
 
             switchScreen('end-screen');
         }
-
     </script>
 </body>
 </html>
